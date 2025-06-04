@@ -30,11 +30,18 @@ I tried to replace the "unknown" values with the mode in some cases, but that ch
 
 ## The Base Models
 
+The base models had about 90% accuracy on the test data and much lower recall.  
+
 ![image info](images/model_comparison_results.png)
+
+Also looking at the coefficients, I realized that I should take out the phone number as that won't have an impact on the results as they are just random numbers. Base on the results perhaps March would be the best time to have a campaign and that May, November and June would be the worst times to run a marketing campaign.
+
+
+![image info](images/coefficients_results.png)
 
 ## Improving the Models
 
-The first thing I did was to go back to the data and to try to improve the model using the data. There was no missing data, but there were a lot of unkown fields.  Because I was using the JamesSteinEncoder, the efforts to clean the data didn't seem to make much difference because I suspect that the JamesSteinEncoder was creating a separate category for the "unknown" data.  I did replace the data in columns, "job", "marital" and "education", but left the "default" data to be handled by the encoder.  I did not see an improvement in the models with those changes.
+The first thing I did was to go back to the data and to try to improve the model using the data. There was no missing data, but there were a lot of unkown fields.  Because I was using the JamesSteinEncoder, the efforts to clean the data didn't seem to make much difference because I suspect that the JamesSteinEncoder was creating a separate category for the "unknown" data.  I did replace the data in columns, "job", "marital", and "education", but left the "default" data to be handled by the encoder.  I did not see an improvement in the models with those changes.
 
 The effort that had the most effect was tuning the hyper-parameters in grid search.  
 I added quite a few hyper-parameters to improve performance.  
@@ -71,6 +78,9 @@ So even though the accuracy went down below the baseline, the sampling models gi
 
 Because we have a huge majority class we can afford to get rid of some of the majority class with RandomUnderSampling and so underfitting works in this case.
 
+
+
+
 ## Recommendations
 
-My recommendation is to use the model that resulted in the highest recall.  With a predicted 41% precision, the sales team would be happy to have a list created with this model.
+My recommendation is to use the model that resulted in the highest recall. I would also recommend to do the campaign in March which had the high correlation with positive results. I would also recommend focusing on customers who responded positive to previous campaigns as the coefficients had a high correlation with success for those customers. 
